@@ -1,0 +1,12 @@
+version: '3'
+services:
+  nginx:
+    restart: always
+    image: ermiry/test-nginx:development
+    ports:
+      - '80:80'
+
+networks:
+  default:
+    external:
+      name: test
