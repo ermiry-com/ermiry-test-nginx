@@ -4,11 +4,28 @@
 ```
 sudo docker run \
   -it \
-  --name test --rm \
-  -p 5000:5000 \
+  --name test-1 --rm \
+  -p 5001 --net test \
   -v /home/ermiry/Documents/ermiry/Projects/ermiry-test-api:/home/test \
   -e RUNTIME=development \
-  -e PORT=5000 \
+  -e PORT=5001 \
+  -e CERVER_RECEIVE_BUFFER_SIZE=4096 -e CERVER_TH_THREADS=4 \
+  -e CERVER_CONNECTION_QUEUE=4 \
+  -e MONGO_APP_NAME=api -e MONGO_DB=test \
+  -e MONGO_URI=mongodb://api:password@192.168.100.39:27017/test \
+  -e PRIV_KEY=/home/test/keys/key.key -e PUB_KEY=/home/test/keys/key.pub \
+  -e ENABLE_USERS_ROUTES=TRUE \
+  ermiry/test-api:development /bin/bash
+```
+
+```
+sudo docker run \
+  -it \
+  --name test-2 --rm \
+  -p 5002 --net test \
+  -v /home/ermiry/Documents/ermiry/Projects/ermiry-test-api:/home/test \
+  -e RUNTIME=development \
+  -e PORT=5002 \
   -e CERVER_RECEIVE_BUFFER_SIZE=4096 -e CERVER_TH_THREADS=4 \
   -e CERVER_CONNECTION_QUEUE=4 \
   -e MONGO_APP_NAME=api -e MONGO_DB=test \
